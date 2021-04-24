@@ -1,0 +1,321 @@
+## Introduction to R functionality -- Part 1
+
+**Author:** Christina Dimitriadou (christina.delta.k@gmail.com)
+
+**Date:** 10/04/2020
+
+The R interface is *command-based*. The user types in a command in the R language and presses **run**. R executes the command and displays the result. 
+
+## Basic Oparations
+
+Let's start with a few basic and most commonly used operations 
+
+Adition is executed in R as simply as it would be in any other programming language:
+
+```
+1 + 1
+```
+The ```+``` sign is called an operator. The common operators that you will use when programming in R are: ```+``` ```-``` ```*``` ```/``` ```^```. We ca also use parethenses ```()``` or squared and curly brackets ```[]``` ```{}```. in R the operations are done in the same exact same way that you have learned in your early math classes. That is, ```*``` and ```/``` precede ```+``` and ```-``` and ```^``` precede all unlsess we use parentheses or brackets. Try these:
+
+```
+1+1*4 
+(1+1)*4
+```
+
+We also use spaces a lot to make code more readable and comments. I **highly** recommend using comments when writing your code. Including a commented line above your code with an explanation of what that code does, is extremely useful not only for to others read or run your code, but to yourself as well. Imagine opening a script with some analyses that you had ran months earlier. Believe me, if you haven't documented your code with comments, you will be wondering..
+
+* why did I do this?
+* why did I write this part? 
+Note that the comments are **NEVER** executed. You can add a comment by typing ```#``` first. I have examples of comments later in this notebook.
+
+Back to the operators. We can make comparisons using ```== < > <= >=```. These orators return **logical values** ```TRUE``` ```FALSE``` or ```0``` ```1```. Note that in programming double equal sign ```==``` is used for equality comparisons. 
+
+In your console try the following:
+
+```{r}
+2 + 2 == 4
+```
+
+Think of the above line as asking R: Is *2 + 2 = 4?* And the answer (output) is TRUE/yes. 
+
+Try some more operations yourself. Here are a few examples:
+
+* 4 + 7 - 8 * 4
+* (4 + 7) - 8 * 4
+* 5 + 7 == 12
+* 12 - 11 == 2
+
+## Variables 
+
+**Variable** is a symbolic name associated with a value that can be changed. Think of a variable as a placeholder a value. 
+
+We can create a new variable by assigning a value to it using either ```<-``` or ```=```. I really dislike ```<-``` that is commonly used in r, thus I will be using the traditional equal sign ```=```. Try typing this:
+
+```{r}
+a = 2
+```
+
+When we assign values to variables, RStudio stores them in the **Environment** panel, in the upper right of the RStudio interface. Think of the R environment as a container that holds all the active R objects (variables, data, etc..). This is very usefull, because we can get access to what kind of objects we have active at any time.
+
+Note that we can also print it in the R console by typing just the variable name:
+
+```{r}
+a
+```
+
+ In general, R automatically prints any object returned by a function or operation, however, it does not return variable values unless we specify it by typing the variable name. A variable can have any name you want: 
+
+* letter characters: a, b, c...
+* specific words: ```subject_id```, ```subject.id```, ```data_file```, ```gender_var```...
+
+Note that unlike many other languages, R allows you to add ```.``` in your variable names.
+
+We can also do arithmetic oparations with variables:
+
+```{r}
+a * a
+a + a
+a - a
+```
+
+ We can save the result in a newly defined variable:
+ 
+```{r}
+# save the result in a new variable
+b = a * a
+
+b # this will print the value of b
+```
+
+Did you notice that I added a comment to my code? As previously mentioned, comments are not executed. They are there only to help us understand or remember what the lines of code are doing. 
+
+We can also change a variable's value, simply by asigning it a new value:
+
+```{r}
+a = 5
+a
+```
+
+Let's look at teh variable ```b``` again:
+
+```{r}
+b
+```
+The value of the variable ```b``` has not been updated. This is beacause assigning a new value to one variable does not change the values of other variables (but that would be very cool right?). This is very common for pretty much all programming languages, unfortunately, we need to update the associated variables as well (such as the variable  ```b``` in this case). 
+
+```{r}
+b = a * a
+b
+```
+
+## Vectors
+
+A vector is a one-dimensional collection of numbers. Vectors have different meanings and usages in different fields (mathematics, geometry, biology), but in R, vectors simply stand for collections of numbers. The individual numbers of a vector are called *elements*. 
+
+Vectors can be **logical, numeric, character or raw or double**. Note that even when you write just one value in R, it is automatically converted to a vector of length 1 and it belongs to one of the aforementioned vector types.
+
+Try the following examples:
+
+```
+# vector of type character:
+char.vector = "abc"
+char
+
+# vector of type double:
+double.vector = 15.5
+double.vector
+
+# vector of type logical 
+log.vector = 5 + 5 == 10
+log.vector
+
+# vector of type raw
+raw.vector = charToRaw('hello')
+raw.vector
+
+# vector of type numeric 
+num.vector = c(1,2,3,4)
+num.vector
+```
+
+Strings or characters are defined and read using single or double quotation marks ```""``` ```''``` in R.If you try defining strings without quotation marks, R will produce an error. Try this:
+
+```{r}
+char.vector2 = hello
+```
+
+Remember, same as in every other programming language, R reads strings only in quotations. 
+
+The vector type that I want you to focus on for now, is the numeric type. As noticed, numeric vectors are created using the built-in ```c()``` function. ```c``` means combine in R, thus using the ```c()``` function we combine the numbers ```1,2,3,4``` in one object. 
+
+There are many things that you can do with vectors. You can add values to an already existing vector:
+
+```{r}
+num.vector = c(5, num.vector)
+num.vector
+```
+ 
+ you can do mathematical operations:
+ 
+```{r}
+vector2 = num.vector + 1
+vector2
+
+# and..
+num.vector + vector2
+```
+
+you can combine vectors:
+
+```{r}
+vector.comb = c(num.vector, vector2)
+vector.comb
+```
+
+or look at the length of a vector:
+
+```{r}
+length(vector.comb)
+```
+
+you can also extract specific value(s) from a numeric vector, this is also called indexing:
+
+```{r}
+# extract the 2nd value from the vector vector.comb
+vector.comb[2]
+# extract all values exept for the first
+vector.comb[-1]
+
+# use one vector to extract information from another
+vector2[num.vector] 
+
+# the above could be written as:
+vector2[c(5,1,2,3,4)]
+
+# change the value of an element
+vector2[1] = 1
+vector2
+```
+
+### Challenge:
+
+**1. Try mixing different types of vectors**. 
+
+The best way to learn anything new is by practicing and trying some of your own examples.
+
+What happens when you try to combine different types of vectors using the ```c()``` function? 
+Try combining numbers with doubles and strings.
+
+Does the output show numbers in quotation marks ```""```? Why is that?
+
+**2. Create character vectors and index them**. 
+
+Use the ```c()``` method to combine the words: **bacon, eggs, pan, oil, fridge**. 
+
+Based on what you have learned about indexing, create a version of the vector without the word **bacon**, 
+
+Use indexing to create a vector containing the words: **bacon, eggs, fridge, bacon** and **bacon**. 
+
+Add a new item to your new vector: **fork**.
+
+### Creating a vector with sequences
+
+We can create a vector using colon ```:```. 
+
+```{r}
+seq = 1:10
+seq
+```
+
+Did you notice that this vector is called int and not num such as the numerical vectors created above? That is beceause this is an **integer type** of vector. 
+
+Sequences are very useful when indexing. For example:
+
+```{r}
+vector.comb[1:4]
+```
+
+or as a starting point for calculations:
+
+```{r}
+x = 1:10
+y = x * x
+
+plot(x, y)
+```
+
+## Functions 
+
+Functions are the objects that do all the work for us in R (and in any other language). There are several things that we can do with functions:
+
+* make calculations
+* manipulate data
+* create new objects
+* read and write to files 
+* make plots 
+
+We use functions when we want to do same operations repeatedly. Instead of copying and pasting again and again the same lines of code, we write a function which does that for us. 
+
+R has many built-in functions and we will be using them cery frequently. In fact, we have already seen three of them: ```c()```, ```lenght()```, ```plot()```. Another function that you will find yourself using frequently is ```sum()``` which summarises the elements of an object (e.g. vector) for us. Try the following:
+```{r}
+sum(vector2)
+```
+
+ Here, the function ```sum()``` takes one argument: **vector2**. To look at the documentation of a built-in function such as sum(), type:
+```{r}
+?sum
+```
+
+and look at the **help** panel at the bottom left of RStudio. 
+
+Some functions take more than one arguments:
+
+```{r}
+rep(6, 5)
+```
+
+The ```rep()``` function repeats an element a number of times. In our simple example, it repeats the number 6 five times. We can also repeat a vector instead of an element:
+
+```{r}
+rep(c(2,4,6), 5)
+```
+
+or we can specify the arguments by name:
+
+```{r}
+rep(c(2,4,6), times=5)
+```
+
+or change the order of the arguments:
+
+```{r}
+rep(times=5, x=c(2,4,6))
+```
+
+Typically, a function has a number of arguments that it can take, and if an argument is not specified when running a built-in function, then R uses its default values. For example, the function ```rep()``` also takes the argument ```each=```, which stands for **how many times to repeat each element**. The default value of this argument is 1, but we can change it:
+
+```{r}
+rep(c(2,4,6), times=3, each=2)
+```
+
+Now every element is printed 2 times in every repeat. 
+
+### Challenge using functions:
+
+* use a function to summarise values: 1 to 10000
+* look the ```seq()``` function in more detail. What does this function do? Give an example using ```seq()``` with the arguments ```by``` or length.out```
+
+
+## Saving you code in R scripts. 
+
+Once you familiarise yourself with the R language and its functionality, it will become very important to start keeping tracks of the commands that you have previously used. Thus, it is important that you write your code in R scripts. 
+
+To open a new script in RStudio either press *new file* or **shift+comm+N** (for Mac). To run code from a script you can either copy and paste the code from the script to the console and press *enter* or select the line(s) of code in the script and press run (green arrow above the script). 
+
+### Challenge using scripts:
+
+* write a script with the commands that you have learned today and run them in the script using the **run** option (green arrow above the script)
+* leave comments about the commands in the script 
+
+
+
